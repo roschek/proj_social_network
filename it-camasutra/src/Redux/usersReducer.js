@@ -1,4 +1,4 @@
-import {getUsers} from "../api/api";
+import {followUser, getUsersApi, unfollowUser} from "../api/api";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = "UNFOLLOW"
@@ -60,13 +60,39 @@ export const setTotalUsersAC = (usersCount) => ({type: SET_TOTAL_USERS, usersCou
 export const setFetchingStatusAC = (isFetching) =>({type:SET_FETCHING,isFetching})
 export  const setFollowingAC = (isFollow)=>({type:FOLLOWING,isFollow})
 
-export const getCurrentUsersThunkCreator=(currentPage, pageSize)=>{
+export const getUsers=(currentPage, pageSize)=>{
     return (dispatch)=>{
     dispatch(setFetchingStatusAC(true))
-    getUsers(currentPage, pageSize).then(data => {
+    getUsersApi(currentPage, pageSize).then(data => {
         dispatch(setFetchingStatusAC(false))
        dispatch(setUsersAC(data.items));
         dispatch(setTotalUsersAC(data.totalCount))
     })
         .catch(err => console.log(err))
 }}
+
+export const unfollowingUsers=(id)=>{
+    return (dispatch)=>{
+        dispatch(setFollowingAC(true))
+            unfollowUser(id)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(unFollowAC(id))
+                }
+                dispatch(setFollowingAC(false))
+            })
+            .catch(err => console.log(err))
+    }}
+export const followingUsers=(id)=>{
+    return (dispatch)=>{
+        dispatch(setFollowingAC(true))
+            followUser(id)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(followAC(id))
+                }
+                dispatch(setFollowingAC(false))
+            })
+            .catch(err => console.log(err))
+    }}
+

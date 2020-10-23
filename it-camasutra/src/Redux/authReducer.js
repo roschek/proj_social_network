@@ -1,3 +1,5 @@
+import {authUser} from "../api/api";
+
 const SET_USER_DATA = "SET_USER_DATA"
 const UNFOLLOW = "UNFOLLOW"
 
@@ -22,3 +24,14 @@ let initialState = {
 
 export const setUserDataAC=(userId,email,login)=>({type:SET_USER_DATA, data:{userId,email,login}})
 
+export const authUserThunk =()=>{
+    return (dispatch)=>{authUser()
+        .then(res => {
+            if(res.data.resultCode ===0){
+                let {id, login, email} = res.data.data
+                dispatch(setUserDataAC(id,email,login))
+            }
+
+        })
+        .catch(err => console.log(err))
+    }}

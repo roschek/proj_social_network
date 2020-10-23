@@ -1,15 +1,14 @@
 import React from "react";
-import * as axios from "axios";
 import './SearchUsers.css'
 import ava from '../../assets/images/moe-lico-kogda_214679476_orig_.png'
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {followUser, getUsers, unfollowUser} from "../../api/api";
+
 
 class SearchUsersApi extends React.Component {
 
-    componentDidMount() {this.props.setUsersThunk(this.props.currentPage, this.props.pageSize)}
-    onChangePage(el) {this.props.setUsersThunk(el,this.props.pageSize)}
+    componentDidMount() {this.props.getUsers(this.props.currentPage, this.props.pageSize)}
+    onChangePage(el) {this.props.getUsers(el,this.props.pageSize)}
 
     render() {
         let pagesCount = Math.ceil(this.props.totalUsers / this.props.pageSize)
@@ -37,29 +36,9 @@ class SearchUsersApi extends React.Component {
                                          className="avatar  bg-secondary  " alt="avatar"/></NavLink>
                                 {user.followed ?
                                     <button disabled={this.props.following} className="bg-success border-0 rounded  mt-3 p-2 text-light"
-                                            onClick={() => {
-                                                this.props.setFollowing(true)
-                                                unfollowUser(user.id)
-                                                    .then(res => {
-                                                        if (res.data.resultCode === 0) {
-                                                            this.props.unFollow(user.id)
-                                                        }
-                                                        this.props.setFollowing(false)
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }}>unFollow</button> :
+                                            onClick={() => {this.props.unfollowingUsers(user.id)  }}>unFollow</button> :
                                     <button disabled={this.props.following} className="bg-success border-0 rounded  mt-3 p-2 text-light"
-                                            onClick={() => {
-                                                this.props.setFollowing(true)
-                                                followUser(user.id)
-                                                    .then(res => {
-                                                        if (res.data.resultCode === 0) {
-                                                            this.props.followId(user.id)
-                                                        }
-                                                        this.props.setFollowing(false)
-                                                    })
-                                                    .catch(err => console.log(err))
-                                            }}>follow</button>}
+                                            onClick={() => {this.props.followingUsers(user.id)}}>follow</button>}
                             </div>
                             <div className=" container col-10 mr-0  border-dark bg-primary text-light rounded p-3 ">
                                 <div className="row justify-content-between p-2 ">

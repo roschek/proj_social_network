@@ -7,7 +7,7 @@ const baseUrl = axios.create({
         "API-KEY": '72fc652d-b127-4a6d-a735-509b026e6e5d'
     }
 })
-export const getUsers = (currentPage=1,pageSize=10) => {
+export const getUsersApi = (currentPage=1,pageSize=10) => {
     return baseUrl.get(`users?page=${currentPage}&count=${pageSize}`)
        .then(res=> res.data)
 }
@@ -22,3 +22,5 @@ export const authUser =()=>{
     return baseUrl.get(`auth/me`)
 
 }
+export const getUser =(id)=>{
+    return baseUrl.get(`profile/${id}`)}
