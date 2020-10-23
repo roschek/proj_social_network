@@ -11,6 +11,6 @@
     cursor: pointer;
 }
 .active{
-    color:darkred;
+    color: #8b0000;
     font-weight: bold;
 }

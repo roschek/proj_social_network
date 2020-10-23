@@ -1,13 +1,19 @@
+import {getUsers} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
+const SET_FETCHING ='SET_FETCHING'
+const FOLLOWING = 'FOLLOWING'
 let initialState = {
     users: [],
-    pageSize: 4,
+    pageSize: 10,
     totalUsers: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true,
+    following: true,
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -37,15 +43,30 @@ export const usersReducer = (state = initialState, action) => {
             return {...state, currentPage: action.page}
         case SET_TOTAL_USERS:
             return {...state, totalUsers: action.usersCount}
+        case SET_FETCHING:
+            return {...state, isFetching : action.isFetching}
+        case FOLLOWING:
+            return {...state,following: action.isFollow}
         default:
             return state
     }
 }
 
 export const followAC = (userId) => ({type: FOLLOW, userId})
-
 export const unFollowAC = (userId) => ({type: UNFOLLOW, userId})
-
 export const setUsersAC = (users) => ({type: SET_USERS, users})
 export const setPageAC = (page) => ({type: SET_CURRENT_PAGE, page})
 export const setTotalUsersAC = (usersCount) => ({type: SET_TOTAL_USERS, usersCount})
+export const setFetchingStatusAC = (isFetching) =>({type:SET_FETCHING,isFetching})
+export  const setFollowingAC = (isFollow)=>({type:FOLLOWING,isFollow})
+
+export const getCurrentUsersThunkCreator=(currentPage, pageSize)=>{
+    return (dispatch)=>{
+    dispatch(setFetchingStatusAC(true))
+    getUsers(currentPage, pageSize).then(data => {
+        dispatch(setFetchingStatusAC(false))
+       dispatch(setUsersAC(data.items));
+        dispatch(setTotalUsersAC(data.totalCount))
+    })
+        .catch(err => console.log(err))
+}}

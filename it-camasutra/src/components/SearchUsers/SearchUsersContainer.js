@@ -1,6 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import {followAC, setPageAC, setTotalUsersAC, setUsersAC, unFollowAC} from "../../Redux/usersReducer";
+import {
+    followAC, getCurrentUsersThunkCreator,
+    setFetchingStatusAC, setFollowingAC,
+    setPageAC,
+    setTotalUsersAC,
+    setUsersAC,
+    unFollowAC
+} from "../../Redux/usersReducer";
 import * as axios from 'axios'
 import Members from "./Members/Members";
 import SearchUsersApi from "./SearchUsersApi";
@@ -13,7 +20,10 @@ let mapStateToProps = (state) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsers:state.usersPage.totalUsers,
-        currentPage:state.usersPage.currentPage
+        currentPage:state.usersPage.currentPage,
+        isFetching:state.usersPage.isFetching,
+        isFollow:state.usersPage.isFollow,
+
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -32,6 +42,15 @@ let mapDispatchToProps = (dispatch) => {
         },
         setTotalUsers: (usersCount)=>{
             dispatch(setTotalUsersAC(usersCount))
+        },
+       setFetching:(isFetching)=>{
+            dispatch(setFetchingStatusAC(isFetching))
+       },
+        setFollowing:(isFollow)=>{
+            dispatch(setFollowingAC(isFollow))
+        },
+        setUsersThunk: (currentPage, pageSize)=>{
+            dispatch(getCurrentUsersThunkCreator(currentPage,pageSize))
         }
 }
 }

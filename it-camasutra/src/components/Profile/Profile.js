@@ -3,15 +3,18 @@ import "./Profile.css"
 
 import ProfileInfo from "./ProfileInfo";
 import PostsContainer from "./Post/PostsContainer";
+import Preloader from "../Preloader/Preloader";
 
 const Profile = (props) => {
-
+if (!props.profile){
+    return <Preloader/>
+}
     return (
         <>
             <img className="rounded w-100 h-25"
                  src="https://pbs.twimg.com/profile_banners/3363109133/1468156343/1500x500" alt="header"/>
             <div className="container col mt-5">
-                <ProfileInfo name="Вася Вейдер" age="134 года"/>
+                <ProfileInfo name={props.profile.fullName} about={props.profile.aboutMe} avatar={props.profile.photos.small}/>
                 <PostsContainer store={props.store}/>
             </div>
         </>
