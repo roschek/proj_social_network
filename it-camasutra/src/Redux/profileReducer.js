@@ -1,4 +1,3 @@
-import * as axios from "axios";
 import {getUser} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
@@ -43,12 +42,11 @@ export const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const setUserProfile =(profile) =>({type:SET_USER_PROFILE,profile})
 export const updatePostActionCreator = (text) => ({type: UPDATE_TEXT, text: text})
-export const getProfile =(id)=>{
-    return (dispatch)=>{
-        getUser(id)
+export const getProfile =(userId)=>(dispatch)=>{
+        getUser(userId)
             .then(res => {
                 dispatch(setUserProfile(res.data))
             })
-            .catch(err => console.log(err))
+
     }
-}
+
