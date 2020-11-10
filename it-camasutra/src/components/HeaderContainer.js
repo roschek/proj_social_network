@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {authUserThunk} from "../Redux/authReducer";
+import {authUserThunk, logout} from "../Redux/authReducer";
 import {withRouter} from "react-router-dom";
 
 
@@ -23,4 +23,4 @@ const mapStateToProps = (state) =>({
 })
 
 let WithUrlHeaderContainer = withRouter(HeaderContainer)
-export default connect(mapStateToProps,{authUserThunk})(WithUrlHeaderContainer)
+export default connect(mapStateToProps,{authUserThunk,logout})(WithUrlHeaderContainer)
