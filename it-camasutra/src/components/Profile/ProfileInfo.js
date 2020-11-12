@@ -17,8 +17,12 @@ const ProfileInfo = (props) => {
         <div className="mt-5 w-100 col-8">
           <h2 className="ml-5 text-left">{props.name}</h2>
           <p className="text-left ml-5 mt-3 h5">{props.about}</p>
-          <p className="font-weight-bold">Looking for a job: {props.lookingForAJob?' Yes ':" No "}</p>
-          <p className="font-weight-bold">My skills: {props.lookingForAJobDescription?' Yes ':" No "}</p>
+          <div className="container">
+          <p className="font-weight-bold">Looking for a job: Yes</p>
+          </div>
+          <div className="container">
+          <p className="font-weight-bold">My skills: HTML,CSS, JS, Vue JS, React, Webpack </p>
+          </div>
           <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </div>
       </div>
