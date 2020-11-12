@@ -13,7 +13,7 @@ if (!props.profile){
             <img className="rounded w-100 h-25"
                  src="https://pbs.twimg.com/profile_banners/3363109133/1468156343/1500x500" alt="header"/>
             <div className="container col mt-5">
-                <ProfileInfo name={props.profile.fullName} about={props.profile.aboutMe} avatar={props.profile.photos.small} status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} name={props.profile.fullName} about={props.profile.aboutMe} avatar={props.profile.photos.small} status={props.status} updateStatus={props.updateStatus}/>
                 <PostsContainer store={props.store}/>
             </div>
         </>

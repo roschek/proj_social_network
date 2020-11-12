@@ -8,7 +8,7 @@ const Navbar = (props) => {
     return (
         <nav className="col-3 rounded bg-success  pb-5 pt-2 ml-0 row  b">
             <ul className="list-unstyled font-weight-bold text-light h2">
-                <li className="p-2"><NavLink to="/profile" className="text-decoration-none text-light">Profile</NavLink>
+                <li className="p-2"><NavLink to="/profile12114" className="text-decoration-none text-light">Profile</NavLink>
                 </li>
                 <li className="p-2"><NavLink to="/dialogs" className="text-decoration-none text-light">Dialogs</NavLink>
                 </li>

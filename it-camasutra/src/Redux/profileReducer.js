@@ -1,10 +1,11 @@
-import {addStatus, getUser, getUserStatus} from "../api/api";
+import {addStatus, getUser, getUserStatus,savePhotoUpdate} from "../api/api";
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_TEXT = "UPDATE-TEXT"
 const SET_USER_PROFILE= "SET_USER_PROFILE"
 const SET_STATUS ="SET_STATUS"
+const SAVE_PHOTO="SAVE_PHOTO"
 
 let initialState = {
     postsData: [{post: "First post", likes: "14", id: '1'}, {
@@ -37,6 +38,8 @@ export const profileReducer = (state = initialState, action) => {
             return {...state, profile: action.profile}
         case SET_STATUS:
             return {...state, status: action.status}
+        case  SAVE_PHOTO:
+            return {...state, profile: {...state.profile, photos:action.photos} }
         default:
             return state
 
@@ -48,6 +51,7 @@ export const addPostActionCreator = () => ({type: ADD_POST})
 export const setUserProfile =(profile) =>({type:SET_USER_PROFILE,profile})
 export const updatePostActionCreator = (text) => ({type: UPDATE_TEXT, text: text})
 export const setStatus = (status) =>({type:SET_STATUS, status})
+export const setPhotoSuccess = (photos)=>({type:SAVE_PHOTO, photos})
 export const getProfile =(userId)=>(dispatch)=>{
         getUser(userId)
             .then(res => {
@@ -67,6 +71,14 @@ export const updateStatus =(status)=>(dispatch)=>{
         .then(res=>{
             if(res.data.resultCode === 0){
             dispatch(setStatus(status))}
+        })
+        .catch(err=>console.log(err))
+}
+export const savePhoto =(file)=>(dispatch)=>{
+    savePhotoUpdate(file)
+        .then(res=>{
+            if(res.data.resultCode === 0){
+                dispatch(setPhotoSuccess(res.data.data.photos))}
         })
         .catch(err=>console.log(err))
 }

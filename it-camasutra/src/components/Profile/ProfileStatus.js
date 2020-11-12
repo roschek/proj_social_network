@@ -35,6 +35,7 @@ componentDidUpdate(prevProps, prevState, snapshot) {
             <>
                 {!this.state.editMode &&
                 <div className="container">
+                    <p className="font-weight-bold">My Status</p>
                     <p onClick={this.editMode}
                        className="text-left font-weight-bold">{this.props.status || "Нет статуса"}</p>
                 </div>}
